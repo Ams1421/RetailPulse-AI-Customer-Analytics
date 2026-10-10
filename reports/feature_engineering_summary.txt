@@ -1,0 +1,25 @@
+RETAILPULSE - FEATURE ENGINEERING SUMMARY
+=============================================
+Reference date: 2011-12-10
+Eligible sales transaction rows: 779,425
+Customer feature rows: 5,878
+Customer feature columns: 14
+Daily product records: 439,167
+Distinct products in demand table: 4,631
+First demand date: 2009-12-01 00:00:00
+Last demand date: 2011-12-09 00:00:00
+
+Customer features:
+customer_id, first_purchase, last_purchase, invoice_count, total_items, total_spend, average_line_value, distinct_products, distinct_countries, recency_days, customer_lifetime_days, average_order_value, spend_per_item, reference_date
+
+Daily product features:
+order_date, stock_code, units_sold, sales_revenue, invoice_count, day_of_week, month, year, is_weekend
+
+Outputs:
+C:\Projects\RetailPulse\data\processed\customer_features.csv
+C:\Projects\RetailPulse\data\processed\daily_product_sales.csv
+
+Notes:
+Features use positive, identifiable-customer sales only.
+The reference date is one day after the latest eligible transaction.
+Churn labels and forecasting targets have not been created yet.

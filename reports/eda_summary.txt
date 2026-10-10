@@ -1,0 +1,84 @@
+RETAILPULSE - EXPLORATORY DATA ANALYSIS
+=============================================
+Cleaned transaction rows: 1,033,036
+Rows used for standard sales analysis: 1,007,913
+Unique customers in sales subset: 5,878
+Unique products in sales subset: 4,916
+Countries in sales subset: 43
+Total standard sales revenue: 20,476,260.45
+Invoice count in sales subset: 40,077
+
+MONTHLY REVENUE
+---------------------------------------------
+month
+2009-12     822483.950
+2010-01     651155.112
+2010-02     551504.726
+2010-03     830915.261
+2010-04     678875.252
+2010-05     657705.500
+2010-06     749537.310
+2010-07     648810.270
+2010-08     695251.910
+2010-09     921696.991
+2010-10    1161902.220
+2010-11    1464293.142
+2010-12     821452.730
+2011-01     689811.610
+2011-02     522545.560
+2011-03     716215.260
+2011-04     536968.491
+2011-05     769296.610
+2011-06     760547.010
+2011-07     718076.121
+2011-08     757841.380
+2011-09    1056435.192
+2011-10    1151263.730
+2011-11    1503866.780
+2011-12     637808.330
+
+TOP 10 COUNTRIES BY REVENUE
+---------------------------------------------
+country
+United Kingdom    1.741020e+07
+EIRE              6.587673e+05
+Netherlands       5.540381e+05
+Germany           4.250197e+05
+France            3.504561e+05
+Australia         1.692835e+05
+Spain             1.083325e+05
+Switzerland       1.006856e+05
+Sweden            9.186982e+04
+Denmark           6.858069e+04
+
+TOP 10 PRODUCTS BY REVENUE
+---------------------------------------------
+description
+Manual                                339241.29
+REGENCY CAKESTAND 3 TIER              330590.32
+DOTCOM POSTAGE                        309854.11
+WHITE HANGING HEART T-LIGHT HOLDER    260990.22
+PAPER CRAFT , LITTLE BIRDIE           168469.60
+PARTY BUNTING                         148318.28
+JUMBO BAG RED RETROSPOT               148073.47
+ASSORTED COLOUR BIRD ORNAMENT         129324.49
+POSTAGE                               125682.42
+PAPER CHAIN KIT 50'S CHRISTMAS        117760.29
+
+TOP 10 CUSTOMERS BY REVENUE
+---------------------------------------------
+customer_id
+18102.0    580987.04
+14646.0    528602.52
+14156.0    313437.62
+14911.0    291420.81
+17450.0    244784.25
+13694.0    195640.69
+17511.0    172132.87
+16446.0    168472.50
+16684.0    147142.77
+12415.0    144458.37
+
+Charts saved in reports/figures/.
+Revenue excludes cancellation invoices, negative quantities, and non-positive prices.
+These are preliminary business-analysis rules and should be documented.

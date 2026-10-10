@@ -1,0 +1,28 @@
+RETAILPULSE - INVENTORY PLANNING
+=============================================
+Products analyzed: 10
+Forecast horizon in input: 14 days
+Assumed supplier lead time: 7 days
+Assumed safety-stock buffer: 3 days of average forecast demand
+Assumed starting stock: 7 days of average forecast demand
+Products flagged for reorder: 10
+
+INVENTORY RECOMMENDATIONS
+---------------------------------------------
+stock_code  average_daily_forecast  total_forecast_demand  forecast_days  lead_time_demand  safety_stock  reorder_point  assumed_stock_on_hand  suggested_replenishment_units   planning_status
+     17003                   46.55                 651.77             14            325.88        139.66         465.55                 325.88                            140 Reorder suggested
+     21212                   27.00                 377.94             14            188.97         80.99         269.96                 188.97                             81 Reorder suggested
+     21977                   32.84                 459.82             14            229.91         98.53         328.44                 229.91                             99 Reorder suggested
+     22197                  754.62               10564.64             14           5282.32       2263.85        7546.17                5282.32                           2264 Reorder suggested
+     23166                   24.65                 345.07             14            172.54         73.94         246.48                 172.54                             74 Reorder suggested
+     84077                  152.71                2138.00             14           1069.00        458.14        1527.14                1069.00                            459 Reorder suggested
+     84879                  103.19                1444.72             14            722.36        309.58        1031.94                 722.36                            310 Reorder suggested
+     84991                   13.94                 195.12             14             97.56         41.81         139.37                  97.56                             42 Reorder suggested
+    85099B                   59.71                 836.00             14            418.00        179.14         597.14                 418.00                            180 Reorder suggested
+    85123A                   92.29                1292.00             14            646.00        276.86         922.86                 646.00                            277 Reorder suggested
+
+IMPORTANT LIMITATIONS
+---------------------------------------------
+Actual stock-on-hand and supplier lead-time records were unavailable.
+Starting stock is assumed to equal seven days of average forecast demand.
+Recommendations are planning estimates, not confirmed purchase orders.

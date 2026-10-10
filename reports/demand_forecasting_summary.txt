@@ -1,0 +1,70 @@
+RETAILPULSE - DEMAND FORECASTING
+=============================================
+Observed data range: 2009-12-01 to 2011-12-09
+Evaluation period: 2011-11-12 to 2011-12-09
+Forecast horizon: 14 days
+Minimum distinct selling days required: 30
+Eligible products: 2,961
+Products excluded for insufficient selling days: 1,670
+Products evaluated: 10
+
+AVERAGE EVALUATION METRICS ACROSS PRODUCTS
+---------------------------------------------
+                          mae     rmse
+baseline
+7-day average         106.637  152.306
+7-day seasonal naive  112.354  184.250
+
+PER-PRODUCT METRICS
+---------------------------------------------
+stock_code             baseline        mae       rmse
+     84077 7-day seasonal naive  84.214286 128.971758
+     84077        7-day average  98.448980 111.473205
+    85099B 7-day seasonal naive 171.250000 288.501486
+    85099B        7-day average 227.255102 242.190008
+    85123A 7-day seasonal naive  94.214286 134.744202
+    85123A        7-day average  96.602041 128.995808
+     21212 7-day seasonal naive  42.392857  58.802029
+     21212        7-day average  39.408163  51.455945
+     84879 7-day seasonal naive 158.142857 254.548199
+     84879        7-day average 156.301020 176.322279
+     23166 7-day seasonal naive  41.928571  78.350403
+     23166        7-day average  25.744898  56.605329
+     22197 7-day seasonal naive 376.035714 657.903027
+     22197        7-day average 300.688776 568.535305
+     17003 7-day seasonal naive  52.321429  71.153004
+     17003        7-day average  41.811224  60.715420
+     21977 7-day seasonal naive  51.857143  85.398227
+     21977        7-day average  41.750000  60.790918
+     84991 7-day seasonal naive  51.178571  84.128091
+     84991        7-day average  38.357143  65.975645
+
+SELECTED FORECAST METHODS
+---------------------------------------------
+stock_code  selected_baseline
+17003       7-day average           14
+21212       7-day average           14
+21977       7-day average           14
+22197       7-day average           14
+23166       7-day average           14
+84077       7-day seasonal naive    14
+84879       7-day average           14
+84991       7-day average           14
+85099B      7-day seasonal naive    14
+85123A      7-day seasonal naive    14
+
+OUTPUTS
+---------------------------------------------
+C:\Projects\RetailPulse\data\processed\forecast_evaluation.csv
+C:\Projects\RetailPulse\data\processed\demand_forecasts.csv
+C:\Projects\RetailPulse\data\processed\forecast_excluded_products.csv
+C:\Projects\RetailPulse\reports\demand_forecasting_summary.txt
+
+LIMITATIONS
+---------------------------------------------
+These are baseline forecasts, not a tuned production model.
+The minimum selling-day threshold is a screening rule, not proof of forecast reliability.
+Zero recorded sales does not prove the product was available but unsold.
+Returns, stock availability, promotions, and holidays are not modeled separately.
+The evaluation period is used to select the better baseline per product.
+Evaluation results are model-selection results, not an untouched final test.

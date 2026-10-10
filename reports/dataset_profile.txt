@@ -1,0 +1,71 @@
+RETAILPULSE - RAW DATASET PROFILE
+=============================================
+Source file: online_retail_II.xlsx
+Worksheets: Year 2009-2010, Year 2010-2011
+Total rows: 1,067,371
+Total columns including source sheet: 9
+
+ROWS PER WORKSHEET
+---------------------------------------------
+SourceSheet
+Year 2010-2011    541910
+Year 2009-2010    525461
+
+COLUMN DATA TYPES
+---------------------------------------------
+Invoice                object
+StockCode              object
+Description            object
+Quantity                int64
+InvoiceDate    datetime64[us]
+Price                 float64
+Customer ID           float64
+Country                   str
+SourceSheet               str
+
+MISSING VALUES
+---------------------------------------------
+Invoice             0
+StockCode           0
+Description      4382
+Quantity            0
+InvoiceDate         0
+Price               0
+Customer ID    243007
+Country             0
+SourceSheet         0
+
+Exact duplicate rows: 34,335
+Unique invoices: 53,628
+Unique products: 5,305
+Unique customers: 5,942
+Unique countries: 43
+Rows with negative quantity: 22,950
+Rows with zero quantity: 0
+Rows with negative price: 5
+Rows with zero price: 6,202
+Invoices starting with C: 19,494
+Invalid invoice dates: 0
+
+DATE RANGE
+---------------------------------------------
+First transaction: 2009-12-01 07:45:00
+Last transaction: 2011-12-09 12:50:00
+
+TOP 10 COUNTRIES BY ROW COUNT
+---------------------------------------------
+Country
+United Kingdom    981330
+EIRE               17866
+Germany            17624
+France             14330
+Netherlands         5140
+Spain               3811
+Switzerland         3189
+Belgium             3123
+Portugal            2620
+Australia           1913
+
+NOTE
+---------------------------------------------
+This report profiles raw data only. No rows have been removed or modified.

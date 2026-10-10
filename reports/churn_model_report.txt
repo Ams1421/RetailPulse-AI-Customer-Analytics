@@ -1,0 +1,61 @@
+RETAILPULSE - CUSTOMER CHURN PREDICTION
+==================================================
+Feature window: 2010-12-01 to 2011-06-30
+Observation window: 2011-07-01 to 2011-09-30
+Target: 1 = no qualifying purchase in observation window; 0 = at least one
+Customers labeled: 2,960
+Training customers: 2,220
+Test customers: 740
+
+CLASS DISTRIBUTION
+--------------------------------------------------
+churn
+Active    1505
+Churn     1455
+
+MODEL COMPARISON (HELD-OUT TEST SET)
+--------------------------------------------------
+{
+  "Logistic Regression": {
+    "accuracy": 0.7216216216216216,
+    "precision_churn": 0.6845794392523364,
+    "recall_churn": 0.804945054945055,
+    "f1_churn": 0.73989898989899,
+    "roc_auc": 0.7794818213701192
+  },
+  "Random Forest": {
+    "accuracy": 0.6986486486486486,
+    "precision_churn": 0.674074074074074,
+    "recall_churn": 0.75,
+    "f1_churn": 0.7100130039011704,
+    "roc_auc": 0.7589651040448914
+  }
+}
+
+Selected model by churn F1-score: Logistic Regression
+
+CLASSIFICATION REPORT
+--------------------------------------------------
+              precision    recall  f1-score   support
+
+      Active       0.77      0.64      0.70       376
+       Churn       0.68      0.80      0.74       364
+
+    accuracy                           0.72       740
+   macro avg       0.73      0.72      0.72       740
+weighted avg       0.73      0.72      0.72       740
+
+CONFUSION MATRIX (rows=actual, columns=predicted; Active then Churn)
+[[241 135]
+ [ 71 293]]
+
+Saved model: C:\Projects\RetailPulse\models\churn_model.pkl
+Saved test predictions: C:\Projects\RetailPulse\data\processed\churn_test_predictions.csv
+Saved confusion matrix: C:\Projects\RetailPulse\reports\figures\churn_confusion_matrix.png
+
+LIMITATIONS
+--------------------------------------------------
+Churn is an operational definition based on a three-month no-purchase window.
+The model applies to customers with qualifying purchases in the feature window.
+This is a historical holdout evaluation, not proof of future performance.
+Customers first appearing after the feature window are not included.

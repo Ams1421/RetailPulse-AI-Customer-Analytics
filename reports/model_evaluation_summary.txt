@@ -1,0 +1,131 @@
+RETAILPULSE - CONSOLIDATED MODEL EVALUATION
+=======================================================
+
+1. CUSTOMER CHURN PREDICTION
+-------------------------------------------------------
+RETAILPULSE - CUSTOMER CHURN PREDICTION
+==================================================
+Feature window: 2010-12-01 to 2011-06-30
+Observation window: 2011-07-01 to 2011-09-30
+Target: 1 = no qualifying purchase in observation window; 0 = at least one
+Customers labeled: 2,960
+Training customers: 2,220
+Test customers: 740
+
+CLASS DISTRIBUTION
+--------------------------------------------------
+churn
+Active    1505
+Churn     1455
+
+MODEL COMPARISON (HELD-OUT TEST SET)
+--------------------------------------------------
+{
+  "Logistic Regression": {
+    "accuracy": 0.7216216216216216,
+    "precision_churn": 0.6845794392523364,
+    "recall_churn": 0.804945054945055,
+    "f1_churn": 0.73989898989899,
+    "roc_auc": 0.7794818213701192
+  },
+  "Random Forest": {
+    "accuracy": 0.6986486486486486,
+    "precision_churn": 0.674074074074074,
+    "recall_churn": 0.75,
+    "f1_churn": 0.7100130039011704,
+    "roc_auc": 0.7589651040448914
+  }
+}
+
+Selected model by churn F1-score: Logistic Regression
+
+CLASSIFICATION REPORT
+--------------------------------------------------
+              precision    recall  f1-score   support
+
+      Active       0.77      0.64      0.70       376
+       Churn       0.68      0.80      0.74       364
+
+    accuracy                           0.72       740
+   macro avg       0.73      0.72      0.72       740
+weighted avg       0.73      0.72      0.72       740
+
+CONFUSION MATRIX (rows=actual, columns=predicted; Active then Churn)
+[[241 135]
+ [ 71 293]]
+
+Saved model: C:\Projects\RetailPulse\models\churn_model.pkl
+Saved test predictions: C:\Projects\RetailPulse\data\processed\churn_test_predictions.csv
+Saved confusion matrix: C:\Projects\RetailPulse\reports\figures\churn_confusion_matrix.png
+
+LIMITATIONS
+--------------------------------------------------
+Churn is an operational definition based on a three-month no-purchase window.
+The model applies to customers with qualifying purchases in the feature window.
+This is a historical holdout evaluation, not proof of future performance.
+Customers first appearing after the feature window are not included.
+
+2. DEMAND FORECASTING
+-------------------------------------------------------
+Average metrics across evaluated products:
+                          mae     rmse
+baseline
+7-day average         106.637  152.306
+7-day seasonal naive  112.354  184.250
+
+Per-product results:
+stock_code             baseline        mae       rmse
+     84077 7-day seasonal naive  84.214286 128.971758
+     84077        7-day average  98.448980 111.473205
+    85099B 7-day seasonal naive 171.250000 288.501486
+    85099B        7-day average 227.255102 242.190008
+    85123A 7-day seasonal naive  94.214286 134.744202
+    85123A        7-day average  96.602041 128.995808
+     21212 7-day seasonal naive  42.392857  58.802029
+     21212        7-day average  39.408163  51.455945
+     84879 7-day seasonal naive 158.142857 254.548199
+     84879        7-day average 156.301020 176.322279
+     23166 7-day seasonal naive  41.928571  78.350403
+     23166        7-day average  25.744898  56.605329
+     22197 7-day seasonal naive 376.035714 657.903027
+     22197        7-day average 300.688776 568.535305
+     17003 7-day seasonal naive  52.321429  71.153004
+     17003        7-day average  41.811224  60.715420
+     21977 7-day seasonal naive  51.857143  85.398227
+     21977        7-day average  41.750000  60.790918
+     84991 7-day seasonal naive  51.178571  84.128091
+     84991        7-day average  38.357143  65.975645
+
+3. CUSTOMER SEGMENTATION
+-------------------------------------------------------
+ cluster  customers  avg_recency_days  avg_invoices  avg_monetary  median_monetary
+       0       1204             28.44         19.21      10678.40          4965.48
+       1       1455            231.20          5.03       1945.08          1447.74
+       2       1261             29.24          3.03        847.75           729.25
+       3       1958            397.89          1.38        316.09           272.03
+
+4. INVENTORY PLANNING
+-------------------------------------------------------
+Products analyzed: 10
+Products flagged for reorder: 10
+stock_code  average_daily_forecast  total_forecast_demand  forecast_days  lead_time_demand  safety_stock  reorder_point  assumed_stock_on_hand  suggested_replenishment_units   planning_status
+     17003                   46.55                 651.77             14            325.88        139.66         465.55                 325.88                            140 Reorder suggested
+     21212                   27.00                 377.94             14            188.97         80.99         269.96                 188.97                             81 Reorder suggested
+     21977                   32.84                 459.82             14            229.91         98.53         328.44                 229.91                             99 Reorder suggested
+     22197                  754.62               10564.64             14           5282.32       2263.85        7546.17                5282.32                           2264 Reorder suggested
+     23166                   24.65                 345.07             14            172.54         73.94         246.48                 172.54                             74 Reorder suggested
+     84077                  152.71                2138.00             14           1069.00        458.14        1527.14                1069.00                            459 Reorder suggested
+     84879                  103.19                1444.72             14            722.36        309.58        1031.94                 722.36                            310 Reorder suggested
+     84991                   13.94                 195.12             14             97.56         41.81         139.37                  97.56                             42 Reorder suggested
+    85099B                   59.71                 836.00             14            418.00        179.14         597.14                 418.00                            180 Reorder suggested
+    85123A                   92.29                1292.00             14            646.00        276.86         922.86                 646.00                            277 Reorder suggested
+Inventory quantities depend on assumed stock levels and lead times.
+
+5. EVALUATION NOTES
+-------------------------------------------------------
+- Churn metrics use a historical holdout split and a defined churn window.
+- Forecast MAE and RMSE are measured in units and depend on each product's scale.
+- Forecast baseline selection used the evaluation period; results are not an untouched final test.
+- Customer cluster IDs are arbitrary and must be interpreted from their profiles.
+- Inventory recommendations use assumptions rather than actual stock records.
+- Do not describe these results as production performance without further validation.

@@ -1,0 +1,28 @@
+RETAILPULSE - CUSTOMER SEGMENTATION
+=============================================
+Reference date: 2011-12-10
+Eligible transaction rows: 779,425
+Customers segmented: 5,878
+K-Means clusters: 4
+K-Means inertia: 4895.41
+
+RFM SCORE GUIDE
+---------------------------------------------
+R_score: 5 means most recent; 1 means least recent.
+F_score: 5 means highest purchase frequency.
+M_score: 5 means highest monetary value.
+Cluster IDs are arbitrary; use the profile below to interpret them.
+
+CLUSTER PROFILES
+---------------------------------------------
+         customers  avg_recency_days  avg_invoices  avg_monetary  median_monetary
+cluster
+0             1204             28.44         19.21      10678.40          4965.48
+1             1455            231.20          5.03       1945.08          1447.74
+2             1261             29.24          3.03        847.75           729.25
+3             1958            397.89          1.38        316.09           272.03
+
+Outputs:
+data/processed/customer_rfm_segments.csv
+reports/customer_cluster_summary.csv
+reports/figures/customer_cluster_counts.png
