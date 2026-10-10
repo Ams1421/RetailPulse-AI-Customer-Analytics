@@ -1,0 +1,42 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Raw and processed data
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Trained models
+models/*
+!models/.gitkeep
+
+# MLflow
+mlruns/
+
+# Generated reports and outputs
+outputs/
+reports/figures/
+
+# Editors
+.vscode/
+.idea/
+
+# Testing
+.pytest_cache/
+.coverage
+.mypy_cache/
+
+# Operating system
+.DS_Store
+Thumbs.db
