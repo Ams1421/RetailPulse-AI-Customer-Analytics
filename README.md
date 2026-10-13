@@ -5,15 +5,17 @@ project built with Python and Streamlit. It turns historical retail
 transactions into customer, sales, churn, demand-forecasting, and
 inventory-planning insights through an interactive seven-page dashboard.
 
+**Live dashboard:**
+https://retailpulse-ai-customer-analytics.streamlit.app
+
 **GitHub repository:**
 https://github.com/Ams1421/RetailPulse-AI-Customer-Analytics
 
-> **Important data note:** The Git repository intentionally excludes
-> files inside `data/` and trained model files. The dashboard therefore
-> needs the required processed CSV files to be generated locally or
-> supplied separately before it can display all results. The original
-> Excel workbook and processed data are not automatically downloaded by
-> the app.
+> **Important data note:** The processed CSV files required by the deployed
+> dashboard are included in the repository. The original Excel workbook,
+> local backups, and trained model files are not included. To reproduce the
+> full analysis from source, download the workbook from the official UCI page
+> and run the project scripts.
 
 ------------------------------------------------------------------------
 
@@ -264,8 +266,8 @@ RetailPulse/
 ```
 
 The exact set of files in `reports/`, `src/`, and `tests/` may change as
-the project evolves. Generated datasets and trained model files are
-intentionally not committed.
+the project evolves. The processed CSV outputs needed by the live dashboard
+are committed; the original source workbook and trained model files are not.
 
 ## Requirements
 
@@ -498,17 +500,15 @@ and re-check the dashboard metrics.
 
 -   **Repository:**
     https://github.com/Ams1421/RetailPulse-AI-Customer-Analytics
--   The `.gitignore` excludes `data/*`, trained model files under
-    `models/*`, local backups, and temporary files.
--   Do not commit secrets, `.env` files, large local backups, or the
-    original workbook.
--   The dashboard needs its processed data files and reports to render
-    all charts. A fresh clone does not automatically contain ignored
-    datasets.
--   For Streamlit Community Cloud, ensure every required dataset and
-    report is made available to the deployed app through an appropriate
-    data-delivery approach before deployment. A successful GitHub push
-    alone does not provide access to ignored local files.
+-   The `.gitignore` excludes data files by default, trained model files
+    under `models/*`, local backups, and temporary files. The eight processed
+    CSV files required by the current dashboard are explicitly tracked in Git.
+-   Do not commit secrets, `.env` files, large local backups, or the original
+    Excel workbook.
+-   The live Streamlit Community Cloud dashboard is available at:
+    https://retailpulse-ai-customer-analytics.streamlit.app
+-   When updating data outputs, verify that the required files are present
+    in the repository and that the deployed app has completed its redeployment.
 
 ## Credits
 
