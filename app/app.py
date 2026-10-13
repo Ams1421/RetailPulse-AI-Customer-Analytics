@@ -17,12 +17,16 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 REPORT_DIR = ROOT / "reports"
 
+ASSETS_DIR = ROOT / "app" / "assets"
+LOGO_PATH = ASSETS_DIR / "retailpulse_logo.png"
+APP_ICON_PATH = ASSETS_DIR / "retailpulse_app_icon.png"
+
 # Configure the page layout to look wide, clean, and professional
 st.set_page_config(
     page_title="RetailPulse | Retail Analytics",
-    page_icon="ðŸ“Š",
+    page_icon=str(APP_ICON_PATH) if APP_ICON_PATH.exists() else "📊",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
 # Custom Styling (UI/UX Upgrades & Typography Hierarchy - Style 1: Modern & Minimalist)
@@ -214,7 +218,7 @@ def add_download(label, df, filename):
 # ==========================================
 customer_features = load_csv("customer_features.csv")
 segments = load_csv("customer_rfm_segments.csv")
-cluster_summary = load_csv("customer_cluster_summary.csv")
+cluster_summary = pd.read_csv(REPORT_DIR / "customer_cluster_summary.csv")
 churn_predictions = load_csv("churn_test_predictions.csv")
 forecast_evaluation = load_csv("forecast_evaluation.csv")
 forecasts = load_csv("demand_forecasts.csv")
@@ -224,33 +228,48 @@ daily_sales_source = load_csv("daily_product_sales.csv")
 # ==========================================
 # SIDEBAR NAVIGATION & MAIN TITLE
 # ==========================================
-st.markdown('<p class="custom-main-title">RetailPulse</p>', unsafe_allow_html=True)
-st.subheader("AI-Powered Customer Analytics & Demand Forecasting")
-st.caption("Retail intelligence for customer engagement, sales planning, and inventory decisions.")
+header_logo, header_text = st.columns([1, 4], vertical_alignment="center")
+
+with header_logo:
+    if LOGO_PATH.exists():
+        st.image(LOGO_PATH, width=230)
+
+with header_text:
+    st.subheader("AI-Powered Customer Analytics & Demand Forecasting")
+    st.caption(
+        "Retail intelligence for customer engagement, sales planning, "
+        "and inventory decisions."
+    )
+
 
 with st.sidebar:
-    st.markdown("### ðŸ“Š Navigation Menu")
+    if APP_ICON_PATH.exists():
+        st.image(APP_ICON_PATH, width=160)
+
+    st.markdown("### 📊 Navigation Menu")
     st.markdown("---")
 
-    # Styled with icons matching Style 1
     selected_option = st.radio(
         "Select Dashboard Page",
         [
-            "ðŸ“Š Executive Overview",
-            "ðŸ‘¥ Customer Segmentation",
-            "ðŸ“‰ Churn Analysis",
-            "ðŸ“ˆ Demand Forecasting",
-            "ðŸ“¦ Inventory Planning",
-            "âš™ï¸ Model Evaluation",
-            "â„¹ï¸ About & Data Notes"
+            "📊 Executive Overview",
+            "👥 Customer Segmentation",
+            "📉 Churn Analysis",
+            "📈 Demand Forecasting",
+            "📦 Inventory Planning",
+            "⚙️ Model Evaluation",
+            "ℹ️ About & Data Notes",
         ],
-        label_visibility="collapsed"
+        label_visibility="collapsed",
     )
-    # Strip the leading icon for clean page condition checks
-    page = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
+
+    # Remove the icon before checking which page is selected.
+    page = selected_option.split(" ", 1)[1]
 
     st.markdown("---")
-    st.caption("Analytics based on the project's processed retail transaction dataset.")
+    st.caption(
+        "Analytics based on the project's processed retail transaction dataset."
+    )
 
 # ==========================================
 # PAGE 1 â€” EXECUTIVE OVERVIEW
@@ -310,9 +329,42 @@ if page == "Executive Overview":
 
         with right:
             st.markdown("#### Top 10 Products by Revenue")
-            top = ds.groupby("stock_code", as_index=False).sales_revenue.sum().nlargest(10,"sales_revenue").sort_values("sales_revenue")
+
+            top = (
+                ds.groupby("stock_code", as_index=False)["sales_revenue"]
+                .sum()
+                .nlargest(10, "sales_revenue")
+                .sort_values("sales_revenue", ascending=True)
+            )
+
             if not top.empty:
-                st.plotly_chart(px.bar(top, x="sales_revenue", y="stock_code", orientation="h", title="Highest-Revenue Products", labels={"stock_code":"Product Code","sales_revenue":"Revenue ($)"}), width="stretch")
+                fig = px.bar(
+                    top,
+                    x="sales_revenue",
+                    y="stock_code",
+                    orientation="h",
+                    text="sales_revenue",
+                    title="Top 10 Products by Revenue",
+                    labels={
+                        "stock_code": "Product Code",
+                        "sales_revenue": "Revenue ($)",
+                    },
+                )
+
+                fig.update_traces(
+                    texttemplate="%{text:,.0f}",
+                    textposition="outside",
+                    cliponaxis=False,
+                )
+
+                fig.update_layout(
+                    height=420,
+                    showlegend=False,
+                    margin=dict(l=20, r=50, t=60, b=40),
+                    yaxis=dict(type="category"),
+                )
+
+                st.plotly_chart(fig, width="stretch")
             else:
                 empty_message("Product revenue data is unavailable.")
 
