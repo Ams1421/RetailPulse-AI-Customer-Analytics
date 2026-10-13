@@ -7,8 +7,8 @@ import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 ROOT = Path(__file__).resolve().parents[2]
-INPUT_FILE = ROOT / "data" / "processed" / "daily_product_sales.csv"
-OUTPUT_DIR = ROOT / "data" / "processed"
+INPUT_FILE = ROOT / "data" / "daily_product_sales.csv"
+OUTPUT_DIR = ROOT / "data"
 REPORT_DIR = ROOT / "reports"
 FIGURES_DIR = REPORT_DIR / "figures"
 

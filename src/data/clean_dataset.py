@@ -3,8 +3,8 @@
 import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATA_FILE = PROJECT_ROOT / "data" / "raw" / "online_retail_II.xlsx"
-OUTPUT_DIR = PROJECT_ROOT / "data" / "processed"
+DATA_FILE = PROJECT_ROOT / "data" / "online_retail_II.xlsx"
+OUTPUT_DIR = PROJECT_ROOT / "data"
 OUTPUT_FILE = OUTPUT_DIR / "retail_transactions_cleaned.csv.gz"
 REPORT_FILE = PROJECT_ROOT / "reports" / "cleaning_summary.txt"
 

@@ -11,11 +11,13 @@ venv/
 .env.*
 !.env.example
 
-# Raw and processed data
-data/raw/*
-!data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
+# Dataset files and generated data
+data/*
+!data/.gitkeep
+
+# Local backups and temporary migration scripts
+retailpulse_data_backup_*/
+update_data_paths.py
 
 # Trained models
 models/*

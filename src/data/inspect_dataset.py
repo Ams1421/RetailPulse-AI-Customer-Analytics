@@ -3,7 +3,7 @@
 import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATA_FILE = PROJECT_ROOT / "data" / "raw" / "online_retail_II.xlsx"
+DATA_FILE = PROJECT_ROOT / "data" / "online_retail_II.xlsx"
 REPORT_FILE = PROJECT_ROOT / "reports" / "dataset_profile.txt"
 
 SHEETS = ["Year 2009-2010", "Year 2010-2011"]

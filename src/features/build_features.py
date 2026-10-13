@@ -3,8 +3,8 @@
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-INPUT_FILE = ROOT / "data" / "processed" / "retail_transactions_cleaned.csv.gz"
-OUTPUT_DIR = ROOT / "data" / "processed"
+INPUT_FILE = ROOT / "data" / "retail_transactions_cleaned.csv.gz"
+OUTPUT_DIR = ROOT / "data"
 REPORT_FILE = ROOT / "reports" / "feature_engineering_summary.txt"
 
 
@@ -67,7 +67,79 @@ def main():
         / customer_features["total_items"].replace(0, pd.NA)
     )
 
+
     customer_features = customer_features.reset_index()
+
+    # ---------------------------------------------------------
+    # RetailPulse custom features created from customer history
+    # ---------------------------------------------------------
+
+    # 1. Season of the customer's most recent purchase.
+    # These seasons use meteorological calendar months.
+    last_purchase_month = pd.to_datetime(
+        customer_features["last_purchase"]
+    ).dt.month
+
+    customer_features["RP_Purchase_Season"] = last_purchase_month.map(
+        {
+            12: "Winter",
+            1: "Winter",
+            2: "Winter",
+            3: "Spring",
+            4: "Spring",
+            5: "Spring",
+            6: "Summer",
+            7: "Summer",
+            8: "Summer",
+            9: "Autumn",
+            10: "Autumn",
+            11: "Autumn",
+        }
+    )
+
+    # 2. Group customers by how recently they purchased.
+    customer_features["RP_Purchase_Recency_Band"] = pd.cut(
+        customer_features["recency_days"],
+        bins=[-1, 30, 90, 180, float("inf")],
+        labels=["Recent", "Warm", "Cooling", "Dormant"],
+    ).astype("string")
+
+    # 3. Group customers by total historical spending.
+    # Quartile boundaries are calculated from this customer dataset.
+    customer_features["RP_Customer_Value_Band"] = pd.qcut(
+        customer_features["total_spend"].rank(method="first"),
+        q=4,
+        labels=["Low", "Medium", "High", "Very High"],
+    ).astype("string")
+
+    # 4. Group customers by the number of distinct products purchased.
+    customer_features["RP_Product_Diversity_Band"] = pd.qcut(
+        customer_features["distinct_products"].rank(method="first"),
+        q=4,
+        labels=["Low", "Medium", "High", "Very High"],
+    ).astype("string")
+
+    # 5. A bounded loyalty index using purchase frequency
+    # and the number of days between the first and last purchase.
+    # A one-day minimum avoids division by zero.
+    active_lifetime = customer_features[
+        "customer_lifetime_days"
+    ].clip(lower=1)
+
+    purchase_rate = (
+        customer_features["invoice_count"] / active_lifetime
+    )
+
+    customer_features["RP_Customer_Loyalty_Index"] = (
+        100
+        * purchase_rate
+        / (purchase_rate + purchase_rate.median())
+    ).round(2)
+
+    # Save the reference date used to calculate recency.
+    customer_features["reference_date"] = reference_date
+
+
     customer_features["reference_date"] = reference_date
 
     # Daily product demand features for forecasting.

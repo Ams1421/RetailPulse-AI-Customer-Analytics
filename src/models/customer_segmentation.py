@@ -7,8 +7,8 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_FILE = ROOT / "data" / "processed" / "retail_transactions_cleaned.csv.gz"
-OUTPUT_DIR = ROOT / "data" / "processed"
+DATA_FILE = ROOT / "data" / "retail_transactions_cleaned.csv.gz"
+OUTPUT_DIR = ROOT / "data"
 REPORT_DIR = ROOT / "reports"
 FIGURES_DIR = REPORT_DIR / "figures"
 
@@ -141,7 +141,7 @@ def main():
         cluster_summary.to_string(),
         "",
         "Outputs:",
-        "data/processed/customer_rfm_segments.csv",
+        "data/customer_rfm_segments.csv",
         "reports/customer_cluster_summary.csv",
         "reports/figures/customer_cluster_counts.png",
     ]

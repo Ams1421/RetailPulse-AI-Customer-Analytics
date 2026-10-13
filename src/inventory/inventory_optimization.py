@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-FORECAST_FILE = ROOT / "data" / "processed" / "demand_forecasts.csv"
-OUTPUT_DIR = ROOT / "data" / "processed"
+FORECAST_FILE = ROOT / "data" / "demand_forecasts.csv"
+OUTPUT_DIR = ROOT / "data"
 REPORT_DIR = ROOT / "reports"
 
 # Planning assumptions; actual stock and supplier data are unavailable.

@@ -21,10 +21,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_FILE = ROOT / "data" / "processed" / "retail_transactions_cleaned.csv.gz"
+DATA_FILE = ROOT / "data" / "retail_transactions_cleaned.csv.gz"
 MODEL_DIR = ROOT / "models"
 REPORT_DIR = ROOT / "reports"
-OUTPUT_DIR = ROOT / "data" / "processed"
+OUTPUT_DIR = ROOT / "data"
 
 FEATURE_START = pd.Timestamp("2010-12-01")
 FEATURE_END = pd.Timestamp("2011-06-30 23:59:59")

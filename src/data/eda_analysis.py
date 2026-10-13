@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_FILE = ROOT / "data" / "processed" / "retail_transactions_cleaned.csv.gz"
+DATA_FILE = ROOT / "data" / "retail_transactions_cleaned.csv.gz"
 FIGURES_DIR = ROOT / "reports" / "figures"
 REPORT_FILE = ROOT / "reports" / "eda_summary.txt"
 
