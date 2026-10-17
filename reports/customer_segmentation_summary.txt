@@ -16,13 +16,13 @@ Cluster IDs are arbitrary; use the profile below to interpret them.
 CLUSTER PROFILES
 ---------------------------------------------
          customers  avg_recency_days  avg_invoices  avg_monetary  median_monetary
-cluster
+cluster                                                                          
 0             1204             28.44         19.21      10678.40          4965.48
 1             1455            231.20          5.03       1945.08          1447.74
 2             1261             29.24          3.03        847.75           729.25
 3             1958            397.89          1.38        316.09           272.03
 
 Outputs:
-data/processed/customer_rfm_segments.csv
+data/customer_rfm_segments.csv
 reports/customer_cluster_summary.csv
 reports/figures/customer_cluster_counts.png

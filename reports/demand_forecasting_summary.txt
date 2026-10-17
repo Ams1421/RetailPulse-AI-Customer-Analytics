@@ -11,7 +11,7 @@ Products evaluated: 10
 AVERAGE EVALUATION METRICS ACROSS PRODUCTS
 ---------------------------------------------
                           mae     rmse
-baseline
+baseline                              
 7-day average         106.637  152.306
 7-day seasonal naive  112.354  184.250
 
@@ -41,7 +41,7 @@ stock_code             baseline        mae       rmse
 
 SELECTED FORECAST METHODS
 ---------------------------------------------
-stock_code  selected_baseline
+stock_code  selected_baseline   
 17003       7-day average           14
 21212       7-day average           14
 21977       7-day average           14
@@ -55,9 +55,9 @@ stock_code  selected_baseline
 
 OUTPUTS
 ---------------------------------------------
-C:\Projects\RetailPulse\data\processed\forecast_evaluation.csv
-C:\Projects\RetailPulse\data\processed\demand_forecasts.csv
-C:\Projects\RetailPulse\data\processed\forecast_excluded_products.csv
+C:\Projects\RetailPulse\data\forecast_evaluation.csv
+C:\Projects\RetailPulse\data\demand_forecasts.csv
+C:\Projects\RetailPulse\data\forecast_excluded_products.csv
 C:\Projects\RetailPulse\reports\demand_forecasting_summary.txt
 
 LIMITATIONS

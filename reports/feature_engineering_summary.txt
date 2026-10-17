@@ -16,8 +16,8 @@ Daily product features:
 order_date, stock_code, units_sold, sales_revenue, invoice_count, day_of_week, month, year, is_weekend
 
 Outputs:
-C:\Projects\RetailPulse\data\processed\customer_features.csv
-C:\Projects\RetailPulse\data\processed\daily_product_sales.csv
+C:\Projects\RetailPulse\data\customer_features.csv
+C:\Projects\RetailPulse\data\daily_product_sales.csv
 
 Notes:
 Features use positive, identifiable-customer sales only.

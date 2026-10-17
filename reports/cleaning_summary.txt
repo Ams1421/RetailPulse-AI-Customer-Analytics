@@ -1,6 +1,6 @@
 RETAILPULSE - DATA CLEANING SUMMARY
 =============================================
-Source file: online_retail_II.xlsx
+Source file: Online_Retail_II_with_5_RetailPulse_Columns.csv
 Original rows: 1,067,371
 Exact duplicate rows removed: 34,335
 Rows after duplicate removal: 1,033,036
@@ -13,16 +13,16 @@ Cancellation invoice rows flagged: 19,104
 Negative quantity rows flagged: 22,496
 Negative price rows flagged: 5
 Zero price rows flagged: 6,014
-Rows with missing customer IDs retained: 235,151
+Processed columns: 19
+Engineered columns retained: total_price, invoice_year, invoice_month, day_of_week, transaction_type
 Total signed line revenue: 18,855,533.70
-Processed columns: 14
 
 Output file:
-C:\Projects\RetailPulse\data\processed\retail_transactions_cleaned.csv.gz
+C:\Projects\RetailPulse\data\retail_transactions_cleaned.csv.gz
 
 POLICY
 ---------------------------------------------
-Only exact duplicate rows were removed.
-Returns, cancellation invoices, and unusual prices were retained and flagged.
-Revenue is quantity multiplied by unit price; it is not yet a finalized sales KPI.
-Missing customer IDs remain in the dataset for aggregate analysis.
+Only exact duplicate source transaction rows were removed.
+Returns, cancellations, and unusual prices were retained and flagged.
+Total price is quantity multiplied by unit price; it is not profit.
+The original Excel workbook is not modified.

@@ -55,7 +55,7 @@ CONFUSION MATRIX (rows=actual, columns=predicted; Active then Churn)
  [ 71 293]]
 
 Saved model: C:\Projects\RetailPulse\models\churn_model.pkl
-Saved test predictions: C:\Projects\RetailPulse\data\processed\churn_test_predictions.csv
+Saved test predictions: C:\Projects\RetailPulse\data\churn_test_predictions.csv
 Saved confusion matrix: C:\Projects\RetailPulse\reports\figures\churn_confusion_matrix.png
 
 LIMITATIONS
@@ -69,7 +69,7 @@ Customers first appearing after the feature window are not included.
 -------------------------------------------------------
 Average metrics across evaluated products:
                           mae     rmse
-baseline
+baseline                              
 7-day average         106.637  152.306
 7-day seasonal naive  112.354  184.250
 
