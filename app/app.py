@@ -45,23 +45,143 @@ h1 a, h2 a, h3 a, h4 a { display: none !important; }
 h1 { color: var(--rp-navy); font-weight: 800; letter-spacing: -0.03em; }
 h2 { color: var(--rp-navy); font-weight: 750; border-bottom: 2px solid var(--rp-border); padding-bottom: .45rem; }
 h3, h4 { color: var(--rp-navy); font-weight: 700; }
-[data-testid="stSidebar"] { background: #0f172a; border-right: 1px solid #1e293b; padding-top: 1rem; }
-[data-testid="stSidebar"] * { color: #f8fafc !important; }
-[data-testid="stSidebar"] div[role="radiogroup"] { gap: .25rem; }
-[data-testid="stSidebar"] div[role="radiogroup"] label { padding: .55rem .75rem; border-radius: 8px; }
-[data-testid="stSidebar"] div[role="radiogroup"] label:hover { background: rgba(13,148,136,.22); }
-[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) { background: rgba(13,148,136,.35); font-weight: 650; }
-div[data-testid="stMetric"] { background: white; border: 1px solid var(--rp-border); border-top: 4px solid var(--rp-teal); padding: 1rem; border-radius: 12px; box-shadow: 0 3px 8px rgba(15,23,42,.04); }
-div[data-testid="stMetricLabel"] { color: var(--rp-muted); font-weight: 650; }
-div[data-testid="stMetricValue"] { color: var(--rp-navy); font-weight: 800; }
-[data-testid="stDataFrame"], [data-testid="stTable"], div[data-testid="stPlotlyChart"] { border: 1px solid var(--rp-border); border-radius: 12px; background: white; padding: .35rem; }
-[data-testid="stExpander"] { background: white; border: 1px solid var(--rp-border); border-radius: 12px; margin-bottom: .8rem; }
-div.stButton>button, div.stDownloadButton>button { border-radius: 8px; border: 1px solid var(--rp-border); font-weight: 650; }
+
+/* RetailPulse sidebar — navy, teal, grouped navigation */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0b1224 0%, #111c33 100%);
+    border-right: 1px solid #263550;
+    padding-top: 1rem;
+}
+[data-testid="stSidebar"] > div:first-child { padding: 1rem .8rem 1.5rem; }
+[data-testid="stSidebar"] * { color: #e7edf7; }
+
+[data-testid="stSidebar"] [data-testid="stImage"] {
+    display: flex;
+    justify-content: center;
+    margin: .1rem auto .6rem;
+}
+.rp-sidebar-heading {
+    color: #f8fafc;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: .01em;
+    margin: .2rem 0 .7rem;
+}
+.rp-sidebar-subtitle {
+    color: #94a3b8;
+    font-size: .74rem;
+    line-height: 1.45;
+    margin: .15rem 0 .8rem;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 12px !important;
+    margin: .12rem 0 .42rem !important;
+    overflow: hidden;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] details,
+[data-testid="stSidebar"] details {
+    background: transparent !important;
+    border: 0 !important;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary {
+    background: transparent !important;
+    border-radius: 10px !important;
+    padding: .62rem .5rem !important;
+    font-size: .96rem;
+    font-weight: 750;
+    min-height: 2.8rem;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary:hover {
+    background: rgba(51, 65, 85, .58) !important;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary svg {
+    color: #a7b6cc !important;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] {
+    gap: .18rem;
+    padding: 0 .05rem .35rem .25rem;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] label {
+    display: flex;
+    align-items: center;
+    padding: .52rem .65rem !important;
+    border-radius: 9px !important;
+    border-left: 3px solid transparent;
+    font-size: .86rem !important;
+    line-height: 1.25;
+    transition: background .15s ease, border-color .15s ease;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    background: rgba(45, 212, 191, .12) !important;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+    background: linear-gradient(90deg, rgba(13,148,136,.38), rgba(13,148,136,.18)) !important;
+    border-left-color: #2dd4bf !important;
+    font-weight: 750;
+}
+/* Hide Streamlit's default circular radio markers in the sidebar.
+   Keep the radio inputs functional for keyboard/mouse navigation, and use
+   the teal left border + tinted background as the selected-state indicator. */
+[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
+[data-testid="stSidebar"] div[role="radiogroup"] label [data-baseweb="radio"] > div:first-child,
+[data-testid="stSidebar"] div[role="radiogroup"] label svg,
+[data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"] {
+    display: none !important;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] label {
+    padding-left: .8rem !important;
+    gap: 0 !important;
+}
+[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
+    box-shadow: inset 3px 0 0 #2dd4bf;
+}
+/* Preserve the original dashboard card, metric, table, chart and button styles.
+   These selectors intentionally target the main page, not the sidebar. */
+[data-testid="stAppViewContainer"] div[data-testid="stMetric"] {
+    background: white;
+    border: 1px solid var(--rp-border);
+    border-top: 4px solid var(--rp-teal);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(15,23,42,.04);
+}
+[data-testid="stAppViewContainer"] div[data-testid="stMetricLabel"] {
+    color: var(--rp-muted);
+    font-weight: 650;
+}
+[data-testid="stAppViewContainer"] div[data-testid="stMetricValue"] {
+    color: var(--rp-navy);
+    font-weight: 800;
+}
+[data-testid="stAppViewContainer"] [data-testid="stDataFrame"],
+[data-testid="stAppViewContainer"] [data-testid="stTable"],
+[data-testid="stAppViewContainer"] div[data-testid="stPlotlyChart"] {
+    border: 1px solid var(--rp-border);
+    border-radius: 12px;
+    background: white;
+    padding: .35rem;
+}
+[data-testid="stAppViewContainer"] [data-testid="stExpander"] {
+    background: white;
+    border: 1px solid var(--rp-border);
+    border-radius: 12px;
+    margin-bottom: .8rem;
+}
+[data-testid="stAppViewContainer"] div.stButton > button,
+[data-testid="stAppViewContainer"] div.stDownloadButton > button {
+    border-radius: 8px;
+    border: 1px solid var(--rp-border);
+    font-weight: 650;
+}
+
 [data-testid="stSidebar"] div.stButton > button {
-    background: #1e293b !important;
+    background: #17243a !important;
     color: #f8fafc !important;
-    border: 1px solid #475569 !important;
-    min-height: 2.5rem;
+    border: 1px solid #34445f !important;
+    border-radius: 10px !important;
+    min-height: 2.45rem;
     white-space: normal;
     opacity: 1 !important;
 }
@@ -72,12 +192,19 @@ div.stButton>button, div.stDownloadButton>button { border-radius: 8px; border: 1
 }
 [data-testid="stSidebar"] div.stButton > button:hover {
     background: #0d9488 !important;
-    border-color: #14b8a6 !important;
+    border-color: #2dd4bf !important;
     color: #ffffff !important;
+}
+[data-testid="stSidebar"] hr {
+    border-color: #2b3a53 !important;
+    margin: .8rem 0 !important;
+}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    color: #94a3b8 !important;
+    font-size: .73rem;
 }
 </style>
 """, unsafe_allow_html=True)
-
 
 # --------------------------- Data helpers ---------------------------
 
@@ -269,13 +396,84 @@ pages = [
 ]
 with st.sidebar:
     if APP_ICON_PATH.exists():
-        st.image(str(APP_ICON_PATH), width=135)
-    st.markdown("## Navigation")
-    selected = st.radio("Choose a dashboard", pages, label_visibility="collapsed")
-    page = selected.split(" ", 1)[1]
+        st.image(str(APP_ICON_PATH), width=112)
+
+    st.markdown('<div class="rp-sidebar-heading">Navigation</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="rp-sidebar-subtitle">Retail intelligence workspace</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Keep the original page labels and page routing intact; only group the
+    # existing navigation choices into collapsible sections.
+    navigation_groups = {
+        "📊  Dashboards": [
+            "📊 Executive Summary",
+            "📈 Sales Trend Analysis",
+        ],
+        "📊  Retail Performance": [
+            "🏷️ Product Performance",
+            "📦 Product Demand",
+            "🔮 Demand Forecast",
+            "📦 Inventory Planning",
+            "⚠️ Inventory Risk",
+        ],
+        "👥  Customer Insights": [
+            "👥 Customer Analytics",
+            "🧭 Customer Behaviour",
+            "🧩 Customer Segmentation",
+            "📉 Customer Churn",
+            "🧠 Customer Features",
+        ],
+        "💹  Financials": [
+            "💰 Profit & Revenue Analysis",
+            "📅 Monthly & Seasonal Sales",
+        ],
+        "⚙️  Advanced Tools": [
+            "🌍 Country Analysis",
+            "🧾 Orders & Transactions",
+            "🎛️ Interactive Filters",
+            "💡 Business Insights",
+            "🎯 Forecast Evaluation",
+            "⚙️ Model Evaluation & Notes",
+        ],
+        "〰️  Monitoring": [
+            "🩺 Monitoring",
+        ],
+    }
+
+    # The active page is stored separately so changing a radio item in any
+    # section immediately routes to the matching existing page.
+    if "active_page" not in st.session_state or st.session_state["active_page"] not in pages:
+        st.session_state["active_page"] = pages[0]
+
+    def _select_sidebar_page(widget_key):
+        chosen_page = st.session_state.get(widget_key)
+        if chosen_page in pages:
+            st.session_state["active_page"] = chosen_page
+        for group_key in navigation_groups:
+            other_key = "rp_nav_" + re.sub(r"[^a-z0-9]+", "_", group_key.lower()).strip("_")
+            if other_key != widget_key:
+                st.session_state[other_key] = None
+
+    for group_index, (group_label, group_pages) in enumerate(navigation_groups.items()):
+        widget_key = "rp_nav_" + re.sub(r"[^a-z0-9]+", "_", group_label.lower()).strip("_")
+        is_current_group = st.session_state["active_page"] in group_pages
+        with st.expander(group_label, expanded=is_current_group):
+            st.radio(
+                f"{group_label} pages",
+                options=group_pages,
+                index=group_pages.index(st.session_state["active_page"]) if is_current_group else None,
+                key=widget_key,
+                label_visibility="collapsed",
+                on_change=_select_sidebar_page,
+                args=(widget_key,),
+            )
+
+    page = st.session_state["active_page"].split(" ", 1)[1]
     st.markdown("---")
-    st.caption("Based on historical Online Retail II transactions and generated RetailPulse pipeline outputs.")
-    if st.button("Refresh cached data", width="stretch"):
+    st.caption("Historical Online Retail II data and RetailPulse pipeline outputs.")
+    if st.button("↻  Refresh cached data", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
