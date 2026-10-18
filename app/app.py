@@ -497,7 +497,14 @@ if page == "Executive Summary":
     k = st.columns(4)
     k[0].metric("Unique Customers", f"{int(values['customers']):,}" if values["customers"] is not None else (f"{len(customer_features):,}" if not customer_features.empty else "N/A"))
     k[1].metric("Products in Sales Subset", f"{int(values['products']):,}" if values["products"] is not None else (f"{daily_sales.stock_code.nunique():,}" if "stock_code" in daily_sales else "N/A"))
-    k[2].metric("Invoices", f"{int(values['invoices']):,}" if values["invoices"] is not None else "N/A")
+    invoice_count = None
+    if not transactions.empty and "invoice" in transactions.columns:
+        invoice_count = transactions["invoice"].dropna().nunique()
+
+    k[2].metric(
+        "Invoices",
+        f"{invoice_count:,}" if invoice_count is not None else "N/A"
+    )
     k[3].metric("Standard Sales Revenue", f"{values['revenue']:,.2f}" if values["revenue"] is not None else "N/A")
     if values["revenue"] is None:
         st.warning("Revenue could not be read from reports/eda_summary.txt.")
