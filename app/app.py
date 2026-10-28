@@ -121,21 +121,32 @@ h3, h4 { color: var(--rp-navy); font-weight: 700; }
     border-left-color: #2dd4bf !important;
     font-weight: 750;
 }
-/* Hide Streamlit's default circular radio markers in the sidebar.
-   Keep the radio inputs functional for keyboard/mouse navigation, and use
-   the teal left border + tinted background as the selected-state indicator. */
-[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
-[data-testid="stSidebar"] div[role="radiogroup"] label [data-baseweb="radio"] > div:first-child,
-[data-testid="stSidebar"] div[role="radiogroup"] label svg,
-[data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"] {
-    display: none !important;
+/* Sidebar navigation items: clean clickable rows without radio markers. */
+[data-testid="stSidebar"] div.stButton {
+    margin: .08rem 0 !important;
 }
-[data-testid="stSidebar"] div[role="radiogroup"] label {
-    padding-left: .8rem !important;
-    gap: 0 !important;
+[data-testid="stSidebar"] div.stButton > button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left !important;
+    padding: .52rem .65rem !important;
+    border-radius: 9px !important;
+    border-left: 3px solid transparent !important;
+    font-size: .86rem !important;
+    line-height: 1.25;
+    min-height: 2.45rem;
+    transition: background .15s ease, border-color .15s ease;
 }
-[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-    box-shadow: inset 3px 0 0 #2dd4bf;
+[data-testid="stSidebar"] div.stButton > button:hover {
+    background: rgba(45, 212, 191, .12) !important;
+    border-color: #2dd4bf !important;
+}
+[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
+    background: linear-gradient(90deg, rgba(13,148,136,.38), rgba(13,148,136,.18)) !important;
+    border-left: 3px solid #2dd4bf !important;
+    box-shadow: none !important;
+    font-weight: 750;
 }
 /* Preserve the original dashboard card, metric, table, chart and button styles.
    These selectors intentionally target the main page, not the sidebar. */
@@ -442,33 +453,27 @@ with st.sidebar:
         ],
     }
 
-    # The active page is stored separately so changing a radio item in any
-    # section immediately routes to the matching existing page.
+    # Keep the same active-page state and page routing, using normal buttons
+    # instead of radio controls for each page inside the existing dropdowns.
     if "active_page" not in st.session_state or st.session_state["active_page"] not in pages:
         st.session_state["active_page"] = pages[0]
 
-    def _select_sidebar_page(widget_key):
-        chosen_page = st.session_state.get(widget_key)
+    def _select_sidebar_page(chosen_page):
         if chosen_page in pages:
             st.session_state["active_page"] = chosen_page
-        for group_key in navigation_groups:
-            other_key = "rp_nav_" + re.sub(r"[^a-z0-9]+", "_", group_key.lower()).strip("_")
-            if other_key != widget_key:
-                st.session_state[other_key] = None
 
     for group_index, (group_label, group_pages) in enumerate(navigation_groups.items()):
-        widget_key = "rp_nav_" + re.sub(r"[^a-z0-9]+", "_", group_label.lower()).strip("_")
         is_current_group = st.session_state["active_page"] in group_pages
         with st.expander(group_label, expanded=is_current_group):
-            st.radio(
-                f"{group_label} pages",
-                options=group_pages,
-                index=group_pages.index(st.session_state["active_page"]) if is_current_group else None,
-                key=widget_key,
-                label_visibility="collapsed",
-                on_change=_select_sidebar_page,
-                args=(widget_key,),
-            )
+            for page_label in group_pages:
+                st.button(
+                    page_label,
+                    key="rp_page_" + re.sub(r"[^a-z0-9]+", "_", page_label.lower()).strip("_"),
+                    type="primary" if st.session_state["active_page"] == page_label else "secondary",
+                    width="stretch",
+                    on_click=_select_sidebar_page,
+                    args=(page_label,),
+                )
 
     page = st.session_state["active_page"].split(" ", 1)[1]
     st.markdown("---")
